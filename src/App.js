@@ -23,9 +23,8 @@ function App() {
   
     useEffect( () => {
 
-      // .get(`https://server-petshop.onrender.com/home`)
     axios
-    .get('/home')
+    .get(`https://server-petshop.onrender.com/home`)
     .then( res => setProductsList(res.data))
     .catch( err => console.log(err, URL));
   }, [])
