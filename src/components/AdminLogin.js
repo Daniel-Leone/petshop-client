@@ -20,7 +20,7 @@ const AdminLogin = () => {
         e.preventDefault()
 
         axios
-        .get('/home/adminAuth')
+        .get('https://server-petshop.onrender.com/home/adminAuth')
         .then( res => {
 
             if(res.data[0].username === username &&
