@@ -23,9 +23,9 @@ function App() {
   
     useEffect( () => {
 
-      // .get(`https://server-petshop.onrender.com/home`)
-    axios
-    .get('/home')
+      // .get('/home') // prueba local
+      axios
+      .get(`https://server-petshop.onrender.com/home`) // deploy
     .then( res => setProductsList(res.data))
     .catch( err => console.log(err, URL));
   }, [])

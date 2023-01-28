@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from './UseContextProvider'
 
 import { toast } from 'react-toastify';
+import FormProduct from './FormProduct';
 
 // ADMIN COMPONENT
 
@@ -17,7 +18,7 @@ const EditProduct = ({productsList}) => {
   const [price, setPrice] = useState(undefined)
   const [weight, setWeight] = useState(undefined)
   const [image, setImage] = useState('')
-  const [stagePet, setstagePet] = useState();
+  const [stagePet, setStagePet] = useState();
   const [animal, setAnimal] = useState();
 
   const { auth, setAuth } = useAuthContext()
@@ -58,7 +59,7 @@ const EditProduct = ({productsList}) => {
     setPrice('');
     setWeight('')
     setImage('');
-    setstagePet('');
+    setStagePet('');
     setAnimal("");
 
     axios
@@ -85,7 +86,7 @@ const EditProduct = ({productsList}) => {
                 setPrice(prod.price);
                 setWeight(prod.weight);
                 setImage(prod.productImage);
-                setstagePet(prod.stagePet);
+                setStagePet(prod.stagePet);
                 setAnimal(prod.animal);
             }
         })
@@ -111,77 +112,14 @@ const EditProduct = ({productsList}) => {
 
         <form onSubmit={changeOnClick} encType='multipart/form-data'>
 
-          <details>
-
-            <summary>Marca</summary>
-
-            <p> Dog Chow <input type='radio' name='brand' id='DOG CHOW' onClick={e => setBrand(e.target.id)}/> </p>
-            <p> Pedigree <input type='radio' name='brand' id='PEDIGREE' onClick={e => setBrand(e.target.id)}/>  </p>
-            <p> Dogi <input type='radio' name='brand' id='DOGI' onClick={e => setBrand(e.target.id)}/>  </p>
-
-          </details>
-
-          <details>
-
-            <summary>Animal</summary>
-            
-              <p>PERRO <input type='radio' name='kg' onClick={ () => setAnimal('PERRO') }/> </p>
-              <p>GATO <input type='radio' name='kg' onClick={() => setAnimal('GATO')}/></p>
-
-          </details>
-
-          <details style={{zIndex: '1'}}>
-
-            <summary>Etapa</summary>
-
-              <p>CACHORRO <input type='radio' name='stagePet' onClick={ () => setstagePet('CACHORRO') }/> </p>
-              <p>ADULTO <input type='radio' name='stagePet' onClick={ () => setstagePet('ADULTO')}/></p>
-
-          </details>
-          
-          <div className="form-group">
-            <label htmlFor="title">Título</label>
-            <input 
-              type="text"
-              className="form-control"
-              placeholder='nombre del producto'
-              onChange={e => setTitle(e.target.value)}
-              value={title}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="description">Descripción</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder='descripción'
-              onChange={e => setDescription(e.target.value)}
-              value={description}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="price">Precio</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder='precio'
-              onChange={ e => setPrice(e.target.value) }
-              value={price}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="weight">Peso</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder='Peso'
-              onChange={ e => setWeight(e.target.value) }
-              value={weight}
-            />
-          </div>
+          <FormProduct 
+            setBrand={setBrand}
+            setAnimal={setAnimal}
+            setStagePet={setStagePet}
+            setTitle={setTitle} title={title}
+            setDescription={setDescription} description={description}
+            setPrice={setPrice} price={price}
+            setWeight={setWeight} weight={weight} />
 
           <div style={{width: '13vw', height: '40vh'}}>
               <img src={image} alt={image} style={{width: '100%', height: '100%'}}/>

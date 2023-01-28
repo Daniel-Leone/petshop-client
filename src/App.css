@@ -58,3 +58,8 @@ code {
   top: 50%;
   transform: translate(-50%);
 }
+
+.summary{
+  padding: .2rem .5rem;
+  background-color: grey;
+}
