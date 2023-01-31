@@ -15,20 +15,25 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminLogin from './components/AdminLogin';
 
+import { useAuthContext } from './components/UseContextProvider'
+
 // export const URL = process.env.URL_SERVER;
 
 function App() {
 
   const [productsList, setProductsList] = useState([]);
+
+  const { update } = useAuthContext()
   
-    useEffect( () => {
+  
+  useEffect( () => {
 
       // .get('/home') // prueba local
       axios
       .get(`https://server-petshop.onrender.com/home`) // deploy
-    .then( res => setProductsList(res.data))
-    .catch( err => console.log(err, URL));
-  }, [])
+      .then( res => setProductsList(res.data))
+      .catch( err => console.log(err, URL));
+    }, [update])
 
   return (
     <div className="App">

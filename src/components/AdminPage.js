@@ -11,7 +11,7 @@ const AdminPage = ({productsList}) => {
 
     const [product, setProduct] = useState([])
 
-    const { auth, setAuth } = useAuthContext()
+    const { auth, setAuth, update, setUpdate } = useAuthContext()
 
     const navigate = useNavigate()
     
@@ -19,11 +19,14 @@ const AdminPage = ({productsList}) => {
 
         const data = JSON.parse(localStorage.getItem('adminData'))
 
-        if(data){
-            setAuth(true)
-        }
+        if(data) setAuth(true);
 
     }, [])
+
+    const refresh = () => {
+        navigate('/adminAuth')
+        return window.location.reload()
+      }
 
     // DELETE ARTICLE BY ID
 
@@ -33,6 +36,7 @@ const AdminPage = ({productsList}) => {
              .then(res => {
                 toast.success(res.data)
                 setProduct(product.filter( elem => elem._id !== id))
+                setUpdate(!update)
             })
             .catch(res => {
                 toast.error(res.message)
@@ -92,7 +96,13 @@ const AdminPage = ({productsList}) => {
 </div>
     </>
     
-    : navigate('/adminAuth') }
+    :       
+    <>
+        <h3>¡Parece que no tienes los permisos necesarios para ingresar aquí! Intenta registrarte haciendo acá ↓</h3>
+        <button onClick={ () =>  refresh()}>Login</button>
+    </>
+    
+    }
 
     </>
   )

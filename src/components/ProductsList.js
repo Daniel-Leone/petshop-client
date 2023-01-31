@@ -9,8 +9,10 @@ const ProductsList = ({productsList}) => {
 
     const [filters, setFilters] = useState({});
     const [principalFilter, setPrincipalFilter] = useState([]);
-    const [initState, setInitState] = useState();
+    const [initState, setInitState] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    // CAMBIAR EL 2000 ESTÁTICO POR EL TIEMPO DE CARGA DE LA PÁGINA EN CADA PETICIÓN
 
     useEffect( () => {
         setLoading(true)
@@ -47,7 +49,7 @@ const ProductsList = ({productsList}) => {
             }           
             }
 
-            if(!match) setInitState(1);
+            if(!match) setInitState(true);
 
             return match;
         });
@@ -56,10 +58,10 @@ const ProductsList = ({productsList}) => {
     }
 
     const resetRadioButtons = (groupName) => {
-        let arRadioBtn = document.getElementsByName(groupName);
+        let radioBtn = document.getElementsByName(groupName);
     
-        for (let i = 0; i < arRadioBtn.length; i++) {
-            let radButton = arRadioBtn[i];
+        for (let i = 0; i < radioBtn.length; i++) {
+            let radButton = radioBtn[i];
             radButton.checked = false;
         }
 
@@ -104,13 +106,13 @@ return(
         
                 <summary>Peso</summary>
         
-                    <p className='summary'>1kg a 10kg <input type='radio' name='kg' onClick={ () => filters.weight = [1, 10] }/> </p>
+                    <p className='summary'>1kg a 10kg <input type='radio' name='weight' onClick={ () => filters.weight = [1, 10] }/> </p>
         
-                    <p className='summary'>11kg a 20kg <input type='radio' name='kg' onClick={() => filters.weight = [11, 20] }/></p>
+                    <p className='summary'>11kg a 20kg <input type='radio' name='weight' onClick={() => filters.weight = [11, 20] }/></p>
         
-                    <p className='summary'>+ de 20kg <input type='radio' name='kg' onClick={() => filters.weight = [21, 100] }/></p>
+                    <p className='summary'>+ de 20kg <input type='radio' name='weight' onClick={() => filters.weight = [21, 100] }/></p>
 
-                    <input type='button' value='reset' onClick={ () => resetRadioButtons('kg')}/>
+                    <input type='button' value='reset' onClick={ () => resetRadioButtons('weight')}/>
         
             </details>
         
@@ -152,7 +154,7 @@ return(
         
                 <p className='summary'>GATO <input type='radio' name='animal' onClick={() => filters.animal = 'GATO' }/></p>
 
-                <input type='button' value='animal' onClick={ () => resetRadioButtons('brand')}/>
+                <input type='button' value='reset' onClick={ () => resetRadioButtons('animal')}/>
         
             </details>
 
@@ -172,11 +174,14 @@ return(
 
         :  principalFilter.length === 0 ? 
                 
-           !initState ? <PreviewComponent iteratefunction={productsList}/>
+           !initState
+
+            ? <PreviewComponent iteratefunction={productsList}/>
         
             : <h2 style={{textAlign: 'center', width: '100vw'}}>No hay coincidencias</h2>
         
-            : <PreviewComponent iteratefunction={principalFilter}/>    
+        : <PreviewComponent iteratefunction={principalFilter}/>   
+         
         } 
         
         <img src={whatsAppIcon} alt='whatsapp-icon' className="btn" style={{position:'fixed', right: '2vw', bottom: '2vh'}} />

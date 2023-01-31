@@ -21,7 +21,7 @@ const EditProduct = ({productsList}) => {
   const [stagePet, setStagePet] = useState();
   const [animal, setAnimal] = useState();
 
-  const { auth, setAuth } = useAuthContext()
+  const { auth, setAuth, update, setUpdate } = useAuthContext()
 
   const navigate = useNavigate()
 
@@ -64,8 +64,10 @@ const EditProduct = ({productsList}) => {
 
     axios
     .put(`https://server-petshop.onrender.com/home/admin/${id}`, products)
-    .then(res => {
+    .then( res => {
+      navigate('/admin')
       toast.success(res.data)
+      setUpdate(!update)
     })
     .catch(err => {
       toast.error(err.response)

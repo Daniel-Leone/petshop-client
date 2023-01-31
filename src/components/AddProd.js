@@ -14,21 +14,24 @@ const AddProd = () => {
   const [brand, setBrand] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState(undefined)
-  const [weight, setWeight] = useState(undefined)
+  const [price, setPrice] = useState(null)
+  const [weight, setWeight] = useState(null)
   const [image, setImage] = useState('')
   const [stagePet, setStagePet] = useState();
   const [animal, setAnimal] = useState();
 
-  const { auth, setAuth } = useAuthContext()
+  const { auth, setAuth, update, setUpdate } = useAuthContext()
 
   const navigate = useNavigate()
 
+  const refresh = () => {
+    navigate('/adminAuth')
+    return window.location.reload()
+  }
+
   const data = JSON.parse(localStorage.getItem('adminData'))
 
-  if(data){
-    setAuth(true)
-  }
+  if(data) setAuth(true);
 
   const onChangeFile = evt => {
     setImage(evt.target.files[0])
@@ -51,6 +54,7 @@ const AddProd = () => {
     axios
     .post('https://server-petshop.onrender.com/home/admin/add', formData)
     .then(res => {
+      setUpdate(!update)
       toast.success(res.data)
     })
     .catch(err => {
@@ -86,7 +90,7 @@ const AddProd = () => {
           <FormProduct
               setBrand={setBrand}
               setAnimal={setAnimal}
-              setstagePet={setStagePet}
+              setStagePet={setStagePet}
               setTitle={setTitle} title={title}
               setDescription={setDescription} description={description}
               setPrice={setPrice} price={price}
@@ -122,7 +126,11 @@ const AddProd = () => {
       )}
     </div>
 
-      : navigate('/adminAuth')
+      : 
+      <>
+        <h3>¡Parece que no tienes los permisos necesarios para ingresar aquí! Intenta registrarte haciendo acá ↓</h3>
+        <button onClick={ () =>  refresh() }>Login</button>
+      </>
     }
     
     </>
