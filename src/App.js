@@ -28,14 +28,12 @@ function App() {
   
   useEffect( () => {
 
+    console.log(typeof URL, URL);
+
       // .get('/home') // prueba local
       axios
       .get(URL) // deploy
-      .then( res => {
-        setProductsList(res.data)
-        console.log(res);
-        console.log(res.data);
-      })
+      .then( res => setProductsList(res.data))
       .catch( err => console.log(err, URL));
     }, [update])
 
