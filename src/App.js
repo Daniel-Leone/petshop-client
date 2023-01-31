@@ -17,7 +17,7 @@ import AdminLogin from './components/AdminLogin';
 
 import { useAuthContext } from './components/UseContextProvider'
 
-// export const URL = process.env.URL_SERVER;
+export const URL = process.env.URL_SERVER;
 
 function App() {
 
@@ -30,7 +30,7 @@ function App() {
 
       // .get('/home') // prueba local
       axios
-      .get(`https://server-petshop.onrender.com/home`) // deploy
+      .get(URL) // deploy
       .then( res => setProductsList(res.data))
       .catch( err => console.log(err, URL));
     }, [update])
