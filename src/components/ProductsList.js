@@ -3,14 +3,18 @@ import whatsAppIcon from './images/whatsapp-icon.png'
 import BounceLoader from 'react-spinners/BounceLoader'
 import PreviewComponent from './PreviewComponent'
 
+import { useAuthContext } from './UseContextProvider'
+
 // CLIENT COMPONENT
 
 const ProductsList = ({productsList}) => {
 
     const [filters, setFilters] = useState({});
-    const [principalFilter, setPrincipalFilter] = useState([]);
+    // const [principalFilter, setPrincipalFilter] = useState([]);
     const [initState, setInitState] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const { principalFilter, setPrincipalFilter } = useAuthContext()
 
     // CAMBIAR EL 2000 ESTÁTICO POR EL TIEMPO DE CARGA DE LA PÁGINA EN CADA PETICIÓN
 

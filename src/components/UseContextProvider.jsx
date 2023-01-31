@@ -6,12 +6,14 @@ export const AuthProvider = ({...props}) => {
 
     const [auth, setAuth] = useState(false);
     const [update, setUpdate] = useState(false);
+    const [principalFilter, setPrincipalFilter] = useState([]);
 
     const value = {
         auth,
         setAuth,
         update,
-        setUpdate
+        setUpdate,
+        principalFilter, setPrincipalFilter
     }
 
     return <AuthContext.Provider {...props} value={value} />
