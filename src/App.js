@@ -17,7 +17,7 @@ import AdminLogin from './components/AdminLogin';
 
 import { useAuthContext } from './components/UseContextProvider'
 
-export const URL = process.env.URL_SERVER;
+const URL = process.env.URL_SERVER;
 
 function App() {
 
