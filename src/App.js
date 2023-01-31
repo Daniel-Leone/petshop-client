@@ -31,7 +31,11 @@ function App() {
       // .get('/home') // prueba local
       axios
       .get(URL) // deploy
-      .then( res => setProductsList(res.data))
+      .then( res => {
+        setProductsList(res.data)
+        console.log(res);
+        console.log(res.data);
+      })
       .catch( err => console.log(err, URL));
     }, [update])
 
