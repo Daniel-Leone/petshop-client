@@ -28,12 +28,12 @@ function App() {
   
   useEffect( () => {
 
-      // .get('/home') // prueba local
-      axios
-      .get(`https://server-petshop.onrender.com/home`) // deploy
-      .then( res => setProductsList(res.data))
-      .catch( err => console.log(err, URL));
-    }, [update])
+      // .get(`https://server-petshop.onrender.com/home`)
+    axios
+    .get('/home')
+    .then( res => setProductsList(res.data))
+    .catch( err => console.log(err, URL));
+  }, [])
 
   return (
     <div className="App">

@@ -9,7 +9,8 @@ const ProductsList = ({productsList}) => {
 
     const [filters, setFilters] = useState({});
     const [principalFilter, setPrincipalFilter] = useState([]);
-    const [initState, setInitState] = useState(false);
+    const [initState, setInitState] = useState(undefined);
+
     const [loading, setLoading] = useState(false);
 
     // CAMBIAR EL 2000 ESTÁTICO POR EL TIEMPO DE CARGA DE LA PÁGINA EN CADA PETICIÓN
@@ -49,7 +50,7 @@ const ProductsList = ({productsList}) => {
             }           
             }
 
-            if(!match) setInitState(true);
+         } else if (stagePet === undefined) {
 
             return match;
         });
@@ -57,13 +58,14 @@ const ProductsList = ({productsList}) => {
         setPrincipalFilter(filteredProducts)
     }
 
-    const resetRadioButtons = (groupName) => {
-        let radioBtn = document.getElementsByName(groupName);
-    
-        for (let i = 0; i < radioBtn.length; i++) {
-            let radButton = radioBtn[i];
-            radButton.checked = false;
-        }
+            return (
+                weightValue[0] <= prod.weight && prod.weight <= weightValue[1] &&
+                brandValue === prod.brand &&
+                priceValue[0] <= prod.price && prod.price <= priceValue[1] &&
+                stagePet === prod.stagePet &&
+                animal === prod.animal)
+
+          }
 
         Object.keys(filters).map( filter => {
 
@@ -106,13 +108,11 @@ return(
         
                 <summary>Peso</summary>
         
-                    <p className='summary'>1kg a 10kg <input type='radio' name='weight' onClick={ () => filters.weight = [1, 10] }/> </p>
+                    <p style={{padding: '.2rem .5rem', backgroundColor: 'grey'}}>1kg a 10kg <input type='radio' name='kg' onClick={ () => setWeightValue([1, 10]) }/> </p>
         
-                    <p className='summary'>11kg a 20kg <input type='radio' name='weight' onClick={() => filters.weight = [11, 20] }/></p>
+                    <p style={{padding: '.2rem .5rem', backgroundColor: 'grey'}}>11kg a 20kg <input type='radio' name='kg' onClick={() => setWeightValue([11, 20])}/></p>
         
-                    <p className='summary'>+ de 20kg <input type='radio' name='weight' onClick={() => filters.weight = [21, 100] }/></p>
-
-                    <input type='button' value='reset' onClick={ () => resetRadioButtons('weight')}/>
+                    <p style={{padding: '.2rem .5rem', backgroundColor: 'grey'}}>+ de 20kg <input type='radio' name='kg' onClick={() => setWeightValue([21, 100])}/></p>
         
             </details>
         
@@ -152,9 +152,7 @@ return(
         
                 <p className='summary'>PERRO <input type='radio' name='animal' onClick={ () => filters.animal = 'PERRO' }/> </p>
         
-                <p className='summary'>GATO <input type='radio' name='animal' onClick={() => filters.animal = 'GATO' }/></p>
-
-                <input type='button' value='reset' onClick={ () => resetRadioButtons('animal')}/>
+                <p style={{padding: '.2rem .5rem', backgroundColor: 'grey'}}>GATO <input type='checkbox' name='kg' onClick={() => setAnimal('GATO')}/></p>
         
             </details>
 
@@ -174,14 +172,68 @@ return(
 
         :  principalFilter.length === 0 ? 
                 
-           !initState
-
-            ? <PreviewComponent iteratefunction={productsList}/>
+                productsList.map( (prod, key) => {
+                    
+                    return(
+                    
+                    <div className='d-flex flex-column container my-5 align-items-center' key={key}>
         
             : <h2 style={{textAlign: 'center', width: '100vw'}}>No hay coincidencias</h2>
         
-        : <PreviewComponent iteratefunction={principalFilter}/>   
-         
+                        <div style={{width: '13vw', height: '40vh'}}>
+                            <img src={`${prod.productImage}`} alt={prod.productImage} style={{width: '100%', height: '100%'}}/>
+                        </div>
+        
+                        <p>{prod.description}</p>
+                        <p>${prod.price}</p>
+                        <p>{prod.weight}KG</p>
+                                
+                        <div className='row my-2 justify-content-between '>
+        
+                            <div className='col-sm-2' style={{width: '15vw', height: '5vh'}}>
+                                <Link to={{ 
+                                    pathname: `/product/${prod._id}`
+                                    }} className='btn btn-outline-success'>Ver</Link>
+                            </div>
+                        </div>
+                    </div>
+                    )
+                })
+        
+            :
+        
+                <h2 style={{textAlign: 'center', width: '100vw'}}>No hay coincidencias</h2>
+        
+                :
+        
+                principalFilter.map( (prod, key) => {
+                    
+                    return(
+                    
+                    <div className='d-flex flex-column container my-5 align-items-center' key={key}>
+            
+                        <h2>{prod.title}</h2>
+            
+                            <div style={{width: '13vw', height: '40vh'}}>
+                                <img src={`${prod.productImage}`} alt={prod.productImage} style={{width: '100%', height: '100%'}}/>
+                            </div>
+            
+                            <p>{prod.description}</p>
+                            <p>${prod.price}</p>
+                            <p>{prod.weight}KG</p>
+                                    
+                            <div className='row my-2 justify-content-between '>
+            
+                                <div className='col-sm-2' style={{width: '15vw', height: '5vh'}}>
+                                    <Link to={{
+                                        pathname: `/product/${prod._id}`
+                                        }} className='btn btn-outline-success'>Ver</Link>
+                                </div>
+            
+                            </div>
+                    </div>
+                    )
+                })       
         } 
         
         <img src={whatsAppIcon} alt='whatsapp-icon' className="btn" style={{position:'fixed', right: '2vw', bottom: '2vh'}} />
