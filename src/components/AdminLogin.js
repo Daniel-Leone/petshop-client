@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { URL } from '../App';
 
 const AdminLogin = () => {
 
@@ -20,7 +21,7 @@ const AdminLogin = () => {
         e.preventDefault()
 
         axios
-        .get('https://server-petshop.onrender.com/home/adminAuth')
+        .get(`${URL}/home/adminAuth`)
         .then( res => {
 
             if(res.data[0].username === username &&

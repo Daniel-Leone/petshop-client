@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FormProduct from './FormProduct';
+import { URL } from '../App'
 
 // ADMIN COMPONENT
 
@@ -52,7 +53,7 @@ const AddProd = () => {
     formData.append('animal', animal);
     
     axios
-    .post('https://server-petshop.onrender.com/home/admin/add', formData)
+    .post(`${URL}/home/admin/add`, formData)
     .then(res => {
       setUpdate(!update)
       toast.success(res.data)
@@ -111,7 +112,7 @@ const AddProd = () => {
 
           { image === '' ? null : 
             <div style={{width: '13vw', height: '40vh'}}>
-              <img src={`http://server-petshop.onrender.com/public/${image.name}`} alt={image.name} style={{width: '100%', height: '100%'}}/>
+              <img src={`${URL}/public/${image.name}`} alt={image.name} style={{width: '100%', height: '100%'}}/>
             </div>
           }
 

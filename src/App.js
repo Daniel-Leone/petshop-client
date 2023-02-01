@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminLogin from './components/AdminLogin';
 import { useAuthContext } from './components/UseContextProvider'
 
-export const URL = process.env.REACT_APP_URL;
+export const URL = process.env.REACT_APP_URL_SERVER;
 
 function App() {
 
@@ -26,11 +26,9 @@ function App() {
   
   useEffect( () => {
 
-    console.log(process.env.URL);
-
       // .get('/home') // prueba local
       axios
-      .get(URL) // deploy
+      .get(`${URL}/home`) // deploy
       .then( res => setProductsList(res.data))
       .catch( err => console.log(err, URL));
     }, [update])

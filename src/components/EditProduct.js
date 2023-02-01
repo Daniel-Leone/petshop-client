@@ -5,6 +5,7 @@ import { useAuthContext } from './UseContextProvider'
 
 import { toast } from 'react-toastify';
 import FormProduct from './FormProduct';
+import { URL } from '../App';
 
 // ADMIN COMPONENT
 
@@ -63,7 +64,7 @@ const EditProduct = ({productsList}) => {
     setAnimal("");
 
     axios
-    .put(`https://server-petshop.onrender.com/home/admin/${id}`, products)
+    .put(`${URL}/home/admin/${id}`, products)
     .then( res => {
       navigate('/admin')
       toast.success(res.data)

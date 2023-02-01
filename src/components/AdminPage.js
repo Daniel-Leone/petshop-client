@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useAuthContext } from './UseContextProvider'
 
 import { toast } from 'react-toastify'
+import { URL } from '../App'
 
 // ADMIN COMPONENT
 
@@ -32,7 +33,7 @@ const AdminPage = ({productsList}) => {
 
     const deleteProduct = id => {
         
-        axios.delete(`https://server-petshop.onrender.com/home/admin/${id}`)
+        axios.delete(`${URL}/home/admin/${id}`)
              .then(res => {
                 toast.success(res.data)
                 setProduct(product.filter( elem => elem._id !== id))
