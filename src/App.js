@@ -14,10 +14,9 @@ import Navbar from './components/Navbar';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminLogin from './components/AdminLogin';
-
 import { useAuthContext } from './components/UseContextProvider'
 
-const URL = process.env.URL_SERVER;
+export const URL = process.env.REACT_APP_URL;
 
 function App() {
 
@@ -25,10 +24,9 @@ function App() {
 
   const { update } = useAuthContext()
   
-  
   useEffect( () => {
 
-    console.log(typeof URL, URL);
+    console.log(process.env.URL);
 
       // .get('/home') // prueba local
       axios
