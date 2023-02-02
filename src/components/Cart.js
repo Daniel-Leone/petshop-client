@@ -11,17 +11,10 @@ const Cart = () => {
       
         let value = 0;
 
-        if(storageCart.length === 0){
-            cart.map( prod => {
-                value += prod.price
-                return value;
-            } )
-        } else {
-            storageCart.map( prod => {
-                value += prod.price
-                return value;
-            } )
-        }
+        cart.map( prod => {
+            value += prod.price
+            return value;
+        } )
 
         setPrice(value)
 
@@ -61,12 +54,6 @@ const Cart = () => {
                 )
             } )
 
-        }
-
-        {
-            storageCart.length !== 0 || cart.length !== 0
-            ? <h3>Total: ${price}</h3>
-            : <h3>¡El carrito está vacío!</h3>
         }
 
     </div>

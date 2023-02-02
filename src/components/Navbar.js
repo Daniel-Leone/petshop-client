@@ -10,8 +10,6 @@ const Navbar = () => {
 
   const { cart, storageCart } = useAuthContext()
 
-  console.log('asdasd', storageCart);
-
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark" style={{display:'flex', justifyContent: 'space-evenly'}}>
         <Link to="/" className="navbar-brand"> products user </Link>
@@ -23,8 +21,7 @@ const Navbar = () => {
           <div style={{display:'flex'}} onClick={ () => localStorage.setItem('cart', JSON.stringify(cart)) }>
             <img src={perros} alt={perros}/>
               {
-                // storageCart.length === 0 ?
-                true ?
+                storageCart.length === 0 ?
                   cart.length === 0 ?
                   null : 
                     <div style={{width:'1rem', height:'1rem', borderRadius:' 50%', backgroundColor:'red', color:'white', textAlign:'center'}}>
@@ -33,7 +30,7 @@ const Navbar = () => {
                 :
 
                   <div style={{width:'1rem', height:'1rem', borderRadius:' 50%', backgroundColor:'red', color:'white', textAlign:'center'}}>
-                    {/* {storageCart.length} */}
+                    {storageCart.length}
                   </div> 
               }
           </div>

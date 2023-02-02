@@ -14,7 +14,6 @@ const Product = ({productsList}) => {
     const [image, setImage] = useState('')
 
     const {cart, setCart} = useAuthContext()
-
         
     setTimeout(() => {  
 
