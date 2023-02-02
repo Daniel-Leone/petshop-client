@@ -1,37 +1,46 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthContext } from './UseContextProvider'
 
 // CLIENT COMPONENT
 
 const Product = ({productsList}) => {
 
+    const [brand, setBrand] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(null)
     const [weight, setWeight] = useState(null)
     const [image, setImage] = useState('')
 
+    const {cart, setCart} = useAuthContext()
+
         
-setTimeout(() => {  
+    setTimeout(() => {  
 
-    try {
-        
-        productsList.map(prod => {
+        try {
+            
+            productsList.map(prod => {
 
-            if(`#/product/${prod._id}` === window.location.hash){
-                setTitle(prod.title);
-                setDescription(prod.description);
-                setPrice(prod.price);
-                setWeight(prod.weight);
-                setImage(prod.productImage);
-            }
-        })
+                if(`#/product/${prod._id}` === window.location.hash){
+                    setBrand(prod.brand)
+                    setTitle(prod.title);
+                    setDescription(prod.description);
+                    setPrice(prod.price);
+                    setWeight(prod.weight);
+                    setImage(prod.productImage);
+                }
+            })
 
-    } catch (err) {       
-        console.log(err);
+        } catch (err) {       
+            console.log(err);
+        }
+
+    }, 1);
+
+    const addToCart = () => {
+        setCart([...cart, {title, price, weight, brand}])
     }
-
-}, 1);
 
   return (
 
@@ -48,9 +57,13 @@ setTimeout(() => {
             <p className="">${price}</p>
             <p className="">{weight}KG</p>
 
-            <Link to='/' className="btn btn-info">
-                Volver
-            </Link>
+            <div className='flex-row'>
+                <Link to='/' className="btn btn-info">
+                    Volver
+                </Link>
+
+                <button className='btn btn-warning' onClick={addToCart}>Agregar al carrito</button>
+            </div>
         </div>
     </>
   )

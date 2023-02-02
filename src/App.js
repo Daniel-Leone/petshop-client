@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminLogin from './components/AdminLogin';
 import { useAuthContext } from './components/UseContextProvider'
+import Cart from './components/Cart';
 
 export const URL = process.env.REACT_APP_URL_SERVER;
 
@@ -25,10 +26,9 @@ function App() {
   const { update } = useAuthContext()
   
   useEffect( () => {
-
-      // .get('/home') // prueba local
+    // .get(`${URL}/home`) // deploy
       axios
-      .get(`${URL}/home`) // deploy
+      .get(`https://server-petshop.onrender.com/home`) // deploy
       .then( res => setProductsList(res.data))
       .catch( err => console.log(err, URL));
     }, [update])
@@ -49,6 +49,8 @@ function App() {
           <Route path='/' element={<ProductsList productsList={productsList}/>}/>
 
           <Route path='/product/:id' element={<Product productsList={productsList}/>} />
+
+          <Route path='/cart' element={<Cart/>} />
 
           {/* ADMIN PAGES */}
 
