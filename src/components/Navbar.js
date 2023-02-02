@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import perros from './images/plato-para-perros (1).png'
 import { useAuthContext } from './UseContextProvider'
@@ -12,10 +12,6 @@ const Navbar = () => {
 
   const { cart } = useAuthContext()
 
-  useEffect( () => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart] )
-
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark" style={{display:'flex', justifyContent: 'space-evenly'}}>
         <Link to="/" className="navbar-brand"> products user </Link>
@@ -24,7 +20,7 @@ const Navbar = () => {
         <Link to="/admin/add" className="navbar-brand"> add </Link>
 
         <Link to='/cart'>
-          <div style={{display:'flex'}}>
+          <div style={{display:'flex'}} onClick={ () => localStorage.setItem('cart', JSON.stringify(cart)) }>
             <img src={perros} alt={perros}/>
               {
                 cart.length === 0 ?
