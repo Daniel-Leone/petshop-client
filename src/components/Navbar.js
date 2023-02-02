@@ -10,7 +10,7 @@ const Navbar = () => {
   // CUANDO SE AGREGA O BORRA UN PRODUCTO DEL CARRITO, TAMBIEN LO HACE DEL LOCALSTORAGE
   // CUANDO EL CLIENTE GENERA EL CUPÓN DE COMPRA, RECÍEN AHÍ SE BORRA EL LOCALSTORAGE
 
-  const { cart } = useAuthContext()
+  const { cart, storageCart } = useAuthContext()
 
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark" style={{display:'flex', justifyContent: 'space-evenly'}}>
@@ -23,10 +23,16 @@ const Navbar = () => {
           <div style={{display:'flex'}} onClick={ () => localStorage.setItem('cart', JSON.stringify(cart)) }>
             <img src={perros} alt={perros}/>
               {
-                cart.length === 0 ?
-                null : 
+                storageCart.length === 0 ?
+                  cart.length === 0 ?
+                  null : 
+                    <div style={{width:'1rem', height:'1rem', borderRadius:' 50%', backgroundColor:'red', color:'white', textAlign:'center'}}>
+                      {cart.length}
+                    </div> 
+                :
+
                   <div style={{width:'1rem', height:'1rem', borderRadius:' 50%', backgroundColor:'red', color:'white', textAlign:'center'}}>
-                    {cart.length}
+                    {storageCart.length}
                   </div> 
               }
           </div>
