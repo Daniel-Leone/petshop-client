@@ -17,16 +17,16 @@ const ProductsList = ({productsList}) => {
 
     const { principalFilter, setPrincipalFilter } = useAuthContext()
 
-    // CAMBIAR EL 2000 ESTÁTICO POR EL TIEMPO DE CARGA DE LA PÁGINA EN CADA PETICIÓN
-
-    let time = performance.getEntriesByType("navigation")[0];
-    let loadEnd = time.connectEnd - time.connectStart;
-
     useEffect( () => {
+
+        let time = performance.getEntriesByType("navigation")[0];
+        let loadEnd = time.connectEnd - time.connectStart;
         setLoading(true)
+
         setTimeout( () => {
             setLoading(false)
         }, loadEnd)
+        
     }, [principalFilter] )
 
     const handleFilterChange = () => {
