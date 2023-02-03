@@ -21,12 +21,13 @@ const ProductsList = ({productsList}) => {
 
         let time = performance.getEntriesByType("navigation")[0];
         let loadEnd = time.connectEnd - time.connectStart;
+        console.log(loadEnd);
         setLoading(true)
 
         setTimeout( () => {
             setLoading(false)
         }, loadEnd)
-        
+
     }, [principalFilter] )
 
     const handleFilterChange = () => {
