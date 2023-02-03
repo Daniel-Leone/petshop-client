@@ -25,10 +25,10 @@ function App() {
 
   const { update } = useAuthContext()
   
+  // .get(`https://server-petshop.onrender.com/home`) // deploy
   useEffect( () => {
-    // .get(`${URL}/home`) // deploy
     axios
-    .get(`https://server-petshop.onrender.com/home`) // deploy
+      .get(`${URL}/home`) // deploy
       .then( res => setProductsList(res.data))
       .catch( err => console.log(err, URL));
     }, [update])
