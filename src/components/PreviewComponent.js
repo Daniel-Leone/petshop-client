@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const PreviewComponent = ({iteratefunction}) => {
   return (
-    
     <>
         {
             iteratefunction.map( (prod, key) => {
@@ -30,7 +29,6 @@ const PreviewComponent = ({iteratefunction}) => {
                 
                                 </div>
                         </div>
-
             } )
         }
     </>

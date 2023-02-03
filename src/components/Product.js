@@ -6,6 +6,7 @@ import { useAuthContext } from './UseContextProvider'
 
 const Product = ({productsList}) => {
 
+    const [id, setId] = useState('')
     const [brand, setBrand] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -13,7 +14,7 @@ const Product = ({productsList}) => {
     const [weight, setWeight] = useState(null)
     const [image, setImage] = useState('')
 
-    const {cart, setCart} = useAuthContext()
+    const { cart, setCart } = useAuthContext()
         
     setTimeout(() => {  
 
@@ -22,6 +23,7 @@ const Product = ({productsList}) => {
             productsList.map(prod => {
 
                 if(`#/product/${prod._id}` === window.location.hash){
+                    setId(prod._id)
                     setBrand(prod.brand)
                     setTitle(prod.title);
                     setDescription(prod.description);
@@ -38,7 +40,7 @@ const Product = ({productsList}) => {
     }, 1);
 
     const addToCart = () => {
-        setCart([...cart, {title, price, weight, brand}])
+        setCart([...cart, { id, title, price, weight, brand}])
     }
 
   return (

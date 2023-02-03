@@ -9,8 +9,6 @@ export const AuthProvider = ({...props}) => {
     const [principalFilter, setPrincipalFilter] = useState([]);
     const [cart, setCart] = useState([]);
 
-    const storageCart = JSON.parse(localStorage.getItem('cart'))
-
     const value = {
         auth,
         setAuth,
@@ -19,8 +17,7 @@ export const AuthProvider = ({...props}) => {
         principalFilter,
         setPrincipalFilter,
         cart,
-        setCart,
-        storageCart
+        setCart
     }
 
     return <AuthContext.Provider {...props} value={value} />

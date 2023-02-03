@@ -10,19 +10,23 @@ import { useAuthContext } from './UseContextProvider'
 const ProductsList = ({productsList}) => {
 
     const [filters, setFilters] = useState({});
-    // const [principalFilter, setPrincipalFilter] = useState([]);
     const [initState, setInitState] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const [loadTime, setLoadTime] = useState(0)
 
     const { principalFilter, setPrincipalFilter } = useAuthContext()
 
     // CAMBIAR EL 2000 ESTÁTICO POR EL TIEMPO DE CARGA DE LA PÁGINA EN CADA PETICIÓN
 
+    let time = performance.getEntriesByType("navigation")[0];
+    let loadEnd = time.connectEnd - time.connectStart;
+
     useEffect( () => {
         setLoading(true)
         setTimeout( () => {
             setLoading(false)
-        }, 2000)
+        }, loadEnd)
     }, [principalFilter] )
 
     const handleFilterChange = () => {

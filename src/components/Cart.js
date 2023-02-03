@@ -5,7 +5,7 @@ const Cart = () => {
 
     const [price, setPrice] = useState(0)
 
-    const { cart, storageCart } = useAuthContext()
+    const { cart, setCart } = useAuthContext()
 
     useEffect(() => {
       
@@ -18,42 +18,40 @@ const Cart = () => {
 
         setPrice(value)
 
-    }, [])
+    }, [cart])
+
+    const removeCartProduct = (prod) => {
+        setCart(cart.filter( removedProd =>  removedProd.id !== prod.id))
+    }
 
   return (
     <div style={{display:'flex', flexDirection: 'column', justifyContent: 'space-around', height:'80vh'}}>
         { 
-        
-            storageCart.length === 0 ?
-            
-            cart.length === 0 ?
 
-            <h3>¡El carrito está vacío!</h3> :
+            cart.length !== 0 ?
 
-            cart.map( prod => {
+            cart.map( (prod, key) => {
                 return (
-                    <div style={{display:'flex', justifyContent:'space-evenly', border:'1px solid black', borderRadius:'5px', width:'50vw'}}>
+                    <div style={{display:'flex', justifyContent:'space-evenly', alignItems:'center', border:'1px solid black', borderRadius:'5px', width:'50vw'}} key={key}>
                         <p>{prod.title}</p>
-                        <p>{prod.brand}</p>
+                        <p>{prod.brand}</p> 
                         <p>{prod.price}</p>
                         <p>{prod.weight}</p>
+                        <button onClick={() => removeCartProduct(prod)}>X</button>
                     </div>
                 )
             } )
 
-            :
+            : <h3>¡El carrito está vacío!</h3>
 
-            storageCart.map( prod => {
-                return (
-                    <div style={{display:'flex', justifyContent:'space-evenly', border:'1px solid black', borderRadius:'5px', width:'50vw'}}>
-                        <p>{prod.title}</p>
-                        <p>{prod.brand}</p>
-                        <p>{prod.price}</p>
-                        <p>{prod.weight}</p>
-                    </div>
-                )
-            } )
+        }
 
+        {
+            price === 0 ? null : 
+            <div className='col-sm-12'> 
+                <h3>Total: ${price}</h3>
+                <button className='btn btn-success'>Realizar pedido</button>
+            </div>
         }
 
     </div>
