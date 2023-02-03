@@ -18,12 +18,13 @@ const ProductsList = ({productsList}) => {
     const { principalFilter, setPrincipalFilter } = useAuthContext()
 
     useEffect( () => {
+        
+        let time = performance.getEntriesByType("navigation")[0];
+        let loadEnd = time.connectEnd - time.connectStart;
+        console.log(loadEnd);
+        
         setLoading(true)
-
         setTimeout( () => {
-            let time = performance.getEntriesByType("navigation")[0];
-            let loadEnd = time.connectEnd - time.connectStart;
-            console.log(loadEnd);
             setLoading(false)
         }, loadEnd)
 
