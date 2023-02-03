@@ -11,7 +11,7 @@ const ProductsList = ({productsList}) => {
 
     const [filters, setFilters] = useState({});
     const [initState, setInitState] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [loadTime, setLoadTime] = useState(0)
 
@@ -22,7 +22,7 @@ const ProductsList = ({productsList}) => {
         let time = performance.getEntriesByType("navigation")[0];
         let loadEnd = time.connectEnd - time.connectStart;
         console.log(loadEnd);
-        setLoading(true)
+        // setLoading(true)
 
         setTimeout( () => {
             setLoading(false)
