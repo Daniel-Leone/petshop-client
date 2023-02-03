@@ -11,20 +11,19 @@ const ProductsList = ({productsList}) => {
 
     const [filters, setFilters] = useState({});
     const [initState, setInitState] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const [loadTime, setLoadTime] = useState(0)
 
     const { principalFilter, setPrincipalFilter } = useAuthContext()
 
     useEffect( () => {
-
-        let time = performance.getEntriesByType("navigation")[0];
-        let loadEnd = time.connectEnd - time.connectStart;
-        console.log(loadEnd);
-        // setLoading(true)
+        setLoading(true)
 
         setTimeout( () => {
+            let time = performance.getEntriesByType("navigation")[0];
+            let loadEnd = time.connectEnd - time.connectStart;
+            console.log(loadEnd);
             setLoading(false)
         }, loadEnd)
 
