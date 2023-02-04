@@ -42,7 +42,7 @@ const Cart = () => {
             `
         } )
 
-        window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
+        window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURI(message)}`;
     }
 
   return (
