@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import TicketOrder from './TicketOrder'
 import { useAuthContext } from './UseContextProvider'
 
 const Cart = () => {
 
     const [price, setPrice] = useState(0)
+    const [sendOrder, setSendOrder] = useState(false)
 
     const { cart, setCart } = useAuthContext()
 
@@ -24,7 +26,7 @@ const Cart = () => {
         setCart(cart.filter( removedProd =>  removedProd.id !== prod.id))
     }
 
-    const sendOrder = () => {
+    const order = () => {
 
         let message = `Mi pedido es: 
         `;
@@ -42,7 +44,10 @@ const Cart = () => {
             `
         } )
 
-        window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURI(message)}`;
+        setSendOrder(true)
+        return message;
+
+        // window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURI(message)}`;
     }
 
   return (
@@ -71,8 +76,14 @@ const Cart = () => {
             price === 0 ? null : 
             <div className='col-sm-12'> 
                 <h3>Total: ${price}</h3>
-                <button className='btn btn-success' onClick={sendOrder}>Realizar pedido</button>
+                <button className='btn btn-success' onClick={order}>Realizar pedido</button>
             </div>
+        }
+
+        {
+            sendOrder ?
+                <TicketOrder message={() => order()}/>
+            : null
         }
 
     </div>
