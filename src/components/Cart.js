@@ -31,11 +31,13 @@ const Cart = () => {
         console.log(cart);
         cart.map( prod => {
             message += 
-            `Marca: ${prod.brand} 
+            `
+            Marca: ${prod.brand} 
             Producto: ${prod.title} 
             Precio: ${prod.price} 
             Peso: ${prod.weight}
-            --------------------`
+            ------------------------
+            `
         } )
 
         console.log(message);
