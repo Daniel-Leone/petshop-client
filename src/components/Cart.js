@@ -25,7 +25,18 @@ const Cart = () => {
     }
 
     const sendOrder = () => {
+
+        let message = ``;
+
         console.log(cart);
+        cart.map( prod => {
+            message += `Marca: ${prod.brand} <br/>
+                        Producto: ${prod.title} <br/>
+                        Precio: ${prod.price} <br/>
+                        Peso: ${prod.weight}`
+        } )
+
+        console.log(message);
     }
 
   return (
