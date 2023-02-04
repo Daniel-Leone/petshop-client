@@ -24,8 +24,8 @@ function App() {
   const [productsList, setProductsList] = useState([]);
 
   const { update } = useAuthContext()
-  
   // .get(`https://server-petshop.onrender.com/home`) // deploy
+  
   useEffect( () => {
     axios
       .get(`${URL}/home`) // deploy

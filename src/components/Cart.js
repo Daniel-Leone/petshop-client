@@ -24,6 +24,10 @@ const Cart = () => {
         setCart(cart.filter( removedProd =>  removedProd.id !== prod.id))
     }
 
+    const sendOrder = () => {
+        console.log(cart);
+    }
+
   return (
     <div style={{display:'flex', flexDirection: 'column', justifyContent: 'space-around', height:'80vh'}}>
         { 
@@ -50,7 +54,7 @@ const Cart = () => {
             price === 0 ? null : 
             <div className='col-sm-12'> 
                 <h3>Total: ${price}</h3>
-                <button className='btn btn-success'>Realizar pedido</button>
+                <button className='btn btn-success' onClick={sendOrder}>Realizar pedido</button>
             </div>
         }
 
