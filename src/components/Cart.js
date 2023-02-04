@@ -26,7 +26,9 @@ const Cart = () => {
 
     const sendOrder = () => {
 
-        let message = ``;
+        let message = `Mi pedido es: 
+        `;
+        let ownerPhone = 1150235970;
 
         console.log(cart);
         cart.map( prod => {
@@ -40,7 +42,7 @@ const Cart = () => {
             `
         } )
 
-        console.log(message);
+        window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(message)}`;
     }
 
   return (
