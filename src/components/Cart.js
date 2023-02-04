@@ -26,10 +26,11 @@ const Cart = () => {
         setCart(cart.filter( removedProd =>  removedProd.id !== prod.id))
     }
 
+    let message = `Mi pedido es: 
+    `;
+
     const order = () => {
 
-        let message = `Mi pedido es: 
-        `;
         let ownerPhone = 1150235970;
 
         console.log(cart);
@@ -82,7 +83,7 @@ const Cart = () => {
 
         {
             sendOrder ?
-                <TicketOrder message={() => order()}/>
+                <TicketOrder message={message}/>
             : null
         }
 
