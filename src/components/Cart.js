@@ -6,6 +6,7 @@ const Cart = () => {
 
     const [price, setPrice] = useState(0)
     const [sendOrder, setSendOrder] = useState(false)
+    const [message, setMessage] = useState(`Mi pedido es: `)
 
     const { cart, setCart } = useAuthContext()
 
@@ -26,27 +27,24 @@ const Cart = () => {
         setCart(cart.filter( removedProd =>  removedProd.id !== prod.id))
     }
 
-    let message = `Mi pedido es: 
-    `;
-
     const order = () => {
 
         let ownerPhone = 1150235970;
 
         console.log(cart);
         cart.map( prod => {
-            message += 
+
+            setMessage(...message,
             `
             Marca: ${prod.brand} 
             Producto: ${prod.title} 
             Precio: ${prod.price} 
             Peso: ${prod.weight}
             ------------------------
-            `
+            `)
         } )
 
         setSendOrder(true)
-        return message;
 
         // window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURI(message)}`;
     }
