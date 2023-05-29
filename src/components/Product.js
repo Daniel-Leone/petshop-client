@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from './UseContextProvider'
+import Navbar from './Navbar'
+import addedProduct from './images/Petshop_carga-exitosa.svg'
+import arrow from './images/Petshop_flecha.svg'
 
 // CLIENT COMPONENT
 
-const Product = ({productsList}) => {
+const Product = () => {
 
     const [id, setId] = useState('')
     const [brand, setBrand] = useState('')
@@ -13,8 +16,13 @@ const Product = ({productsList}) => {
     const [price, setPrice] = useState(null)
     const [weight, setWeight] = useState(null)
     const [image, setImage] = useState('')
+    const [age, setAge] = useState('')
 
-    const { cart, setCart } = useAuthContext()
+    const [aggregate, setAggregate] = useState(false);
+
+    const [quantity, setQuantity] = useState(1);
+
+    const { cart, setCart, productsList } = useAuthContext()
         
     setTimeout(() => {  
 
@@ -30,6 +38,7 @@ const Product = ({productsList}) => {
                     setPrice(prod.price);
                     setWeight(prod.weight);
                     setImage(prod.productImage);
+                    setAge(prod.age)
                 }
             })
 
@@ -40,32 +49,79 @@ const Product = ({productsList}) => {
     }, 1);
 
     const addToCart = () => {
-        setCart([...cart, { id, title, price, weight, brand}])
+        setCart([...cart, { id, title, price, weight, brand, quantity, age}])
+        setAggregate(true);
+    }
+
+    const addQuantity = () => {
+        setQuantity(quantity + 1)
+    }
+
+    const subtrQuantity = () => {
+        if(quantity > 1){
+            setQuantity(quantity - 1)
+        } else {
+            setQuantity(1)
+        }
     }
 
   return (
-
     <>
 
-        <div className='d-flex flex-column container my-5 align-items-center'>
-            <h2 className="title">{title}</h2>
 
-            <div style={{width: '13vw', height: '40vh'}}>
-                <img src={image} alt={image} style={{width: '100%', height: '100%', backgroundSize: 'cover'}}/>
+    {
+        !aggregate ? 
+        <>
+        <Navbar name='PRODUCTO:'/>
+                <div className='product-component'>
+
+                    <div className='individual-prod'>
+
+                        <h2 className="title">{title} {age.toLowerCase()} {weight} kg.</h2>
+
+                        <div className='image-container'>
+                            <img src={image} alt={image}/>
+                        </div>
+
+                        <div className='xcont'>
+                            <p>Precio por unidad: ${price}</p>
+
+                            <div className='controls-container'>
+                                <p>Cantidad</p> 
+                                <div className='controls'>
+                                    <span onClick={subtrQuantity}> <img src={arrow}/> </span>
+                                    <span className='value'>{quantity}</span>
+                                    <span onClick={addQuantity}> <img src={arrow} style={{transform:'rotate(180deg)'}}/> </span>
+                                </div>
+                            </div>
+                            <p>Subtotal: ${price*quantity}</p>
+                        </div>
+
+                        <div className='btns'>
+                            <button className='add' onClick={addToCart}>AGREGAR AL PEDIDO</button>
+                            <Link to='/' className="add">VOLVER</Link>
+                        </div>
+                    </div>
+                </div>
+        </>
+        :
+        <>
+        <Navbar/>
+        <div className='product-agg'>
+            <div className='message-container'>
+                <div>
+                    <img src={addedProduct} alt='addedProduct'/>
+                </div>
+                <p>El producto ha sido agregado correctamente a su pedido.</p>
             </div>
 
-            <p className="">{description}</p>
-            <p className="">${price}</p>
-            <p className="">{weight}KG</p>
-
-            <div className='flex-row'>
-                <Link to='/' className="btn btn-info">
-                    Volver
-                </Link>
-
-                <button className='btn btn-warning' onClick={addToCart}>Agregar al carrito</button>
+            <div className='btns'>
+                <Link to='/cart' className='add first-add'>VER PEDIDO</Link>
+                <Link to='/' className="add">VOLVER</Link>
             </div>
         </div>
+        </>
+    }
     </>
   )
 }

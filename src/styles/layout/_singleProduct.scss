@@ -1,0 +1,111 @@
+
+.product-component{
+    
+    .individual-prod{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        margin: 1rem;
+        height: 75vh;
+        margin: 1rem;
+        bottom: 0;
+        width: 91%;
+    
+        .title{
+            height: 12.5%;
+            margin-bottom: 0;
+            font-size: 1.5rem;
+            padding-top: 2rem;
+        }
+        
+        .image-container{
+            height: 42%;
+            align-self: center;
+
+            img{
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+            }
+        }
+
+        .xcont{
+
+            height: 16%;
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+
+            p{
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: .5px;
+                height: 50%;
+                margin-bottom: 0;
+            }
+    
+            .controls-container{
+                display: flex;
+                align-items: center;
+                width: 70%;
+                justify-content: space-between;
+                height: 50%;
+                flex-direction: row;
+                
+                p{
+                    display: flex;
+                    align-items: center;
+                    font-size: 1rem;
+                }
+                
+                .controls{
+                    display: flex;
+                    align-items: center;
+                    font-size: 1.5rem;
+                    position: relative;
+                    flex-direction: row;
+                    border: 1px solid $light-grey-color;
+                    border-radius: $small-border;
+                    margin-left: 1rem;
+
+        
+                    span{
+                        padding: .2rem 1rem;
+                        margin: 0 .1rem;
+                        font-size: 1.3rem;
+
+                        img{
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .btns{
+            height: 21%;
+            position: relative;
+            margin-bottom: .5rem;
+        }
+
+    }
+     
+}
+
+.product-agg{
+    margin: 1rem;
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+
+    .btns{
+        position: absolute;
+        bottom: 2rem;
+    }
+}

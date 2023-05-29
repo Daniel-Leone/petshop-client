@@ -1,33 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import perros from './images/plato-para-perros (1).png'
 import { useAuthContext } from './UseContextProvider'
+import carrito from './images/Petshop_favicon_ÍCONO PLATO_.svg'
+import wave from './images/Petshop_enzabezado_mobile_s-icono.svg'
+import logotype from './images/Petshop_logotipo_LOGOTIPO.svg'
 
 const Navbar = () => {
 
   const { cart } = useAuthContext()
-
   return (
-    <nav className="navbar navbar-expand navbar-dark bg-dark" style={{display:'flex', justifyContent: 'space-evenly'}}>
-        <Link to="/" className="navbar-brand"> products user </Link>
-        <Link to="/adminAuth" className="navbar-brand"> admin auth </Link>
-        <Link to="/admin" className="navbar-brand"> products admin </Link>
-        <Link to="/admin/add" className="navbar-brand"> add </Link>
+    <>
+      <div className='nav-container'>
 
-        <Link to='/cart'>
-          <div style={{display:'flex'}}>
-            <img src={perros} alt={perros}/>
+        <div className='wave-container'>
+          <img src={wave} className='wave-img' alt='navbar'/>
+        </div>
+
+        <div>
+          <Link to='/cart'>
+            <div className='nav-cart-container'>
               {
-                  cart.length === 0 ?
-                  null : 
-                    <div style={{width:'1rem', height:'1rem', borderRadius:' 50%', backgroundColor:'red', color:'white', textAlign:'center'}}>
-                      {cart.length}
-                    </div> 
+                cart.length === 0 ? null : <span>{cart.length}</span>
               }
-          </div>
-        </Link>
-    </nav>
-    
+              <img src={carrito} alt='carrito'></img>
+            </div>
+          </Link>
+        </div>
+      </div>
+
+      <div className='nav-container-desk'>
+        <img src={logotype} className='logotype-img' alt='logotype'/>
+      </div>
+    </>
   )
 }
 

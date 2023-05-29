@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import TicketOrder from './TicketOrder'
+import Navbar from './Navbar'
+import OrderCompleted from './OrderCompleted'
 import { useAuthContext } from './UseContextProvider'
+import { Link } from 'react-router-dom'
+import ReactWhatsapp from 'react-whatsapp';
+import quitar from './images/Petshop_quitar.svg';
 
 const Cart = () => {
 
     const [price, setPrice] = useState(0)
     const [sendOrder, setSendOrder] = useState(false)
-    const [message, setMessage] = useState(`Mi pedido es: `)
+    const [message, setMessage] = useState('')
+
+    const [clientName, setClientName] = useState('')
+    const [addressClient, setAddressClient] = useState('')
 
     const { cart, setCart } = useAuthContext()
 
@@ -15,77 +22,114 @@ const Cart = () => {
         let value = 0;
 
         cart.map( prod => {
-            value += prod.price
+            value += prod.price * prod.quantity
             return value;
         } )
 
-        setPrice(value)
+        setPrice(value);
 
-    }, [cart])
+        setMessage('');
+
+        const cartItems = 'Mi pedido es: ' + cart.map(prod => `
+        ________________________
+        Marca: ${prod.brand}
+        Producto: ${prod.title}
+        Peso: ${prod.weight} kg.
+        Precio x unidad: $${prod.price}
+        Cantidad: ${prod.quantity}
+        Precio total: $${prod.price * prod.quantity}
+        ________________________
+        `) + 
+        `MONTO FINAL: $${value}
+        entrega en ${addressClient} a nombre de ${clientName}`;
+
+        setMessage(cartItems);
+
+    }, [cart, addressClient, clientName])
 
     const removeCartProduct = (prod) => {
         setCart(cart.filter( removedProd =>  removedProd.id !== prod.id))
     }
 
-    const order = () => {
-
-        let ownerPhone = 1150235970;
-
-        console.log(cart);
-        cart.map( prod => {
-
-            setMessage(...message,
-            `
-            Marca: ${prod.brand} 
-            Producto: ${prod.title} 
-            Precio: ${prod.price} 
-            Peso: ${prod.weight}
-            ------------------------
-            `)
-        } )
-
-        setSendOrder(true)
-
-        // window.location.href = `https://wa.me/${ownerPhone}?text=${encodeURI(message)}`;
-    }
+    let ownerPhone = '+541150235970';
 
   return (
-    <div style={{display:'flex', flexDirection: 'column', justifyContent: 'space-around', height:'80vh'}}>
-        { 
+    <>
 
-            cart.length !== 0 ?
+    <Navbar/>
 
-            cart.map( (prod, key) => {
-                return (
-                    <div style={{display:'flex', justifyContent:'space-evenly', alignItems:'center', border:'1px solid black', borderRadius:'5px', width:'50vw'}} key={key}>
-                        <p>{prod.title}</p>
-                        <p>{prod.brand}</p> 
-                        <p>{prod.price}</p>
-                        <p>{prod.weight}</p>
-                        <button onClick={() => removeCartProduct(prod)}>X</button>
-                    </div>
-                )
-            } )
+    <div className='cart-container'>
 
-            : <h3>¡El carrito está vacío!</h3>
+        <div className='order'>
+            {
+                cart.length !== 0 ?
+                <div className='order-titles'>
+                    <p>Productos</p>
 
+                    {
+                        cart.map( (prod, key) => {
+                            return (
+                                <div className='prod-in-order' key={key}>
+                                    <p>{prod.title}, {prod.age.toLowerCase()}, {prod.weight}kg. - x{prod.quantity}</p>
+                                    <button onClick={() => removeCartProduct(prod)}> <img src={quitar}/> </button>
+                                </div>
+                            )
+                        } )
+                    }
+                    <h3>Total: <b>${price}</b></h3>
+                </div>
+            : 
+            <>            
+                <h3>¡El carrito está vacío!</h3>
+
+                <div className='btns'>
+                    <Link to='/' className='add'>VOLVER</Link>
+                </div>
+            </>
+            }
+        </div>
+
+        {
+        cart.length !== 0 ?
+
+        <div className='info-user'>
+            <p>Datos de contacto</p>
+            <ul>
+                <li>
+                    <p>A nombre de: </p>
+                    <input type='text' onChange={ e => setClientName(e.target.value)}/>
+                </li>
+                <li>
+                    <p>Dirección: </p>
+                    <input type='text' onChange={e => setAddressClient(e.target.value)}/>
+                </li>
+            </ul>
+        </div>
+
+        : null
         }
 
         {
-            price === 0 ? null : 
-            <div className='col-sm-12'> 
-                <h3>Total: ${price}</h3>
-                <button className='btn btn-success' onClick={order}>Realizar pedido</button>
-            </div>
+        price === 0 ? null : 
+        <div className='btns'>
+                    <ReactWhatsapp
+                        className='add add-send'
+                        onClick={() => setSendOrder(true)}
+                        number={ownerPhone}
+                        message={message}>
+                        ENVIAR PEDIDO</ReactWhatsapp>
+                <Link to='/' className='add'>VOLVER AL CATÁLOGO</Link>
+        </div>
         }
 
         {
-            sendOrder ?
-                <TicketOrder message={message}/>
-            : null
+        sendOrder ? 
+            <OrderCompleted/>
+        : null
         }
 
     </div>
+    </>
   )
 }
 

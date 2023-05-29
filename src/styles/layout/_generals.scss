@@ -1,0 +1,81 @@
+.add{
+    text-decoration: none;
+    color: $grey-color;
+    background-color: $white-color;
+    border-style: none;
+    box-shadow: inset 0 0 0 1px $secundary-color;
+    border-radius: $small-border;
+    padding: .4rem 1.6rem;
+    font-family: $second-font;
+    font-weight: 600;
+    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    font-size: 1.2rem;
+    transition: .2s;
+    margin: .4rem 0;
+
+    &:hover{
+        color: $white-color;
+        background-color: $cta-color-degrade;
+        box-shadow: none;
+    }
+}
+
+.btns{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.message-container{
+        
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: max-content;
+
+    div{
+        width: 4rem;
+        height: 2rem;
+    }
+
+    p{
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 0;
+        font-family: $second-font;
+    }
+}
+
+.footer{
+    font-family: $second-font;
+    margin-top: 1rem;
+    
+    div{
+        background-color: $cta-color-light;
+        text-align: start;
+        width: 100%;
+        padding: 1.5rem;
+
+        h4{
+            font-weight: 300;
+            color: $grey-color;
+            margin-bottom: 0;
+            font-size: 1.2rem;
+        }
+    }
+}

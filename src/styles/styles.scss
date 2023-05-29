@@ -1,0 +1,68 @@
+
+// Variables
+
+$cta-color: #8F6DD6;
+$cta-color-degrade: #7A4FD6;
+$cta-color-light: #F1EDFB;
+$secundary-color: #FADA3C;
+$grey-color: #707070;
+$light-grey-color: #BFBFBF;
+$white-color: #FFFFFF;
+$second-font: 'Open Sans', sans-serif;
+$small-border: 5px;
+$big-border: 20px;
+
+$min-distance: 15px;
+$mid-distance: 30px;
+$max-distance: 70px;
+
+@font-face {
+    font-family: Baloo;
+    src: url(../utils/Baloo-Regular.ttf.woff);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: $second-font
+}
+
+// General and mobile
+
+@import './layout/generals';
+@import './layout/navbars';
+@import './layout/filterHomeAndHome';
+@import './layout/cartAndOrder';
+@import './layout/singleProduct';
+
+@import './layout/adminAuth';
+
+// Desktop
+
+@import './layout-desktop/home';
+@import './layout-desktop/navbar';
+
+// Animations
+
+@keyframes title-to-top {
+    0%{
+        top: 50vh;
+        transform: translateY(-50%);
+    }
+
+    100%{
+        top: 5vh;
+        transform: translateY(-5%);
+    }
+}
+
+@keyframes opacityOn {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}

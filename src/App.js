@@ -1,37 +1,20 @@
-import './App.css';
+import './styles/styles.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, HashRouter } from 'react-router-dom'
 
-import AddProd from './components/AddProd.js'
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import ProductsList from './components/ProductsList';
+import AddProd from './components/admin/AddProd.js'
 import Product from './components/Product';
-import EditProduct from './components/EditProduct';
-import AdminPage from './components/AdminPage';
-import Navbar from './components/Navbar';
+import EditProduct from './components/admin/EditProduct';
+import AdminPage from './components/admin/AdminPage';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminLogin from './components/AdminLogin';
-import { useAuthContext } from './components/UseContextProvider'
+import AdminLogin from './components/admin/AdminLogin';
 import Cart from './components/Cart';
-
-export const URL = process.env.REACT_APP_URL_SERVER;
+import Home from './components/Home';
+// import HomeDesk from './components/desk-components/HomeDesk';
 
 function App() {
-
-  const [productsList, setProductsList] = useState([]);
-
-  const { update } = useAuthContext()
-  // .get(`https://server-petshop.onrender.com/home`) // deploy
-  
-  useEffect( () => {
-    axios
-      .get(`${URL}/home`) // deploy
-      .then( res => setProductsList(res.data))
-      .catch( err => console.log(err, URL));
-    }, [update])
 
   return (
     <div className="App">
@@ -39,16 +22,16 @@ function App() {
       <ToastContainer /> {/* Notifications */}
 
       <HashRouter >
-
-      <Navbar/>
       
         <Routes>
 
           {/* CLIENT PAGES */}
 
-          <Route path='/' element={<ProductsList productsList={productsList}/>}/>
+          <Route path='/' element={<Home/>}/>
 
-          <Route path='/product/:id' element={<Product productsList={productsList}/>} />
+          {/* <Route path='/' element={<HomeDesk/>}/> */}
+
+          <Route path='/product/:id' element={<Product/>} />
 
           <Route path='/cart' element={<Cart/>} />
 
@@ -56,9 +39,9 @@ function App() {
 
           <Route path='/adminAuth' element={<AdminLogin />} />
 
-          <Route path='/admin' element={<AdminPage productsList={productsList}/>} />
+          <Route path='/admin' element={<AdminPage/>} />
 
-          <Route path='/admin/:id' element={<EditProduct productsList={productsList} />} />
+          <Route path='/admin/:id' element={<EditProduct/>} />
 
           <Route path='/admin/add' element={<AddProd/>} />          
           
